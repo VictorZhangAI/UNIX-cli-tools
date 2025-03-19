@@ -1,3 +1,4 @@
+#include <stddef.h>
 #include <sys/time.h>
 
 #include "ticker.h"
@@ -12,4 +13,9 @@ int set_ticker(int n_msecs)
 
 	new_timeset.it_interval.tv_sec = n_sec;
 	new_timeset.it_interval.tv_usec = n_usecs;
+
+	new_timeset.it_value.tv_sec = n_sec;
+	new_timeset.it_value.tv_usec = n_usecs;
+
+	return setitimer(ITIMER_REAL, &new_timeset, NULL);
 }
